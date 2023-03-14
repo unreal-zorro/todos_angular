@@ -12,8 +12,8 @@
 
 В данном репозитории используется фреймворк Angular ![Angular](./images/Angular.png).
 
-Также приложение реализовано на фреймворках React ![React](./images/React.png) и Vue ![Vue](./images/Vue.png) (в
-других моих репозиториях).
+Также приложение реализовано на фреймворках React ![React](./images/React.png) и Vue ![Vue](./images/Vue.png) (в других
+моих репозиториях).
 
 ### 1.2 Про приложение
 
@@ -136,8 +136,16 @@
       "prettier"
     ],
     "rules": {
-      "prettier/prettier": ["error", { "parser": "angular" }]
-    }
+        "prettier/prettier": [
+          "error",
+          {
+            "parser": "angular"
+          },
+          {
+            "endOfLine": "auto"
+          }
+        ]
+      }
   }
 }
 ```
