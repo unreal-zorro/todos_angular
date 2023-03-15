@@ -22,84 +22,86 @@ const getMockNote: () => NoteDTO = () => {
   return note;
 };
 
-const getStringifyNotesArray: (note: NoteDTO) => string = note => {
-  return `[${JSON.stringify(note)}]`;
-};
-
 describe("NoteService", () => {
   let repository: NoteRepository | null;
   let service: NoteService | null;
 
-  const mockNote: NoteDTO = getMockNote();
-  const mockNotes: NoteDTO[] = [mockNote];
+  const mockNote1: NoteDTO = getMockNote();
+  const mockNote2: NoteDTO = getMockNote();
+  mockNote2._id = "2";
+  const mockNotes: NoteDTO[] = [mockNote1, mockNote2];
 
   beforeEach(() => {
     repository = new NoteRepository();
     service = new NoteService(repository);
-
-    const existingNotes = localStorage.getItem("notes");
-    if (existingNotes) {
-      localStorage.setItem("notes_temp", existingNotes);
-    }
-    localStorage.removeItem("notes");
-    localStorage.setItem("notes", JSON.stringify(mockNotes));
   });
 
   afterEach(() => {
     repository = null;
     service = null;
-
-    localStorage.removeItem("notes");
-    const existingNotes = localStorage.getItem("notes_temp");
-    if (existingNotes) {
-      localStorage.setItem("notes", existingNotes);
-    }
   });
 
-  it("should return notes after call method 'getNotes'", async () => {
-    const newNotes: NoteDTO[] = [getMockNote()];
-    const notes = await service?.getNotes();
-    expect(notes).toEqual(newNotes);
+  it("should add new note after call addNote", async () => {
+    const spy = await spyOn<NoteRepository | null>(
+      repository,
+      "addNewNote" as never
+    );
+    service?.addNote(mockNote1);
+    expect(spy).toHaveBeenCalledWith(mockNote1 as never);
   });
 
-  it("should return note after call method 'getNoteById'", async () => {
-    const note = await service?.getNoteById("1");
+  it("should return notes after call getNotes", async () => {
+    const spy = await spyOn<NoteRepository | null>(
+      repository,
+      "requestNotes" as never
+    ).and.returnValue(mockNotes as never);
+    const notes: NoteDTO[] | void = await service?.getNotes();
+    expect(spy).toHaveBeenCalled();
+    expect(notes).toEqual(mockNotes);
+  });
+
+  it("should return new note after call getNewNote", async () => {
+    const newNote: NoteDTO = new NoteDTO();
+    const spy = await spyOn<NoteRepository | null>(
+      repository,
+      "requestNewNote" as never
+    ).and.returnValue(newNote as never);
+    const note: NoteDTO | void = await service?.getNewNote();
+    expect(spy).toHaveBeenCalled();
+    expect(note).toEqual(newNote);
+  });
+
+  it("should return note with unique id after call getNoteById", async () => {
+    const spy = await spyOn<NoteRepository | null>(
+      repository,
+      "requestNotes" as never
+    ).and.returnValue(mockNotes as never);
+    const note: NoteDTO | void = await service?.getNoteById("1");
+    expect(spy).toHaveBeenCalled();
     if (note) {
-      expect(note._id).toBe("1");
+      expect(mockNotes).toContain(note);
     }
   });
 
-  it("should return empty note after call method 'getNewNote'", async () => {
-    const newNote = new NoteDTO();
-    const note = await service?.getNewNote();
-    if (note) {
-      note._id = "";
-      expect(note).toEqual(newNote);
-    }
+  it("should edit note after call editNote", async () => {
+    const spy = await spyOn<NoteRepository | null>(
+      repository,
+      "editExistentNote" as never
+    );
+    service?.editNote(mockNote1);
+    expect(spy).toHaveBeenCalledWith(mockNote1 as never);
   });
 
-  it("should delete existent note after call method 'deleteNote'", async () => {
-    const success = await service?.deleteNote("1");
-    if (success) {
-      expect(localStorage.getItem("notes")).toBe("[]");
+  it("should delete note with unique id after call deleteNote", async () => {
+    const spy = await spyOn<NoteRepository | null>(
+      repository,
+      "deleteExistentNote" as never
+    ).and.returnValue(true as never);
+    let status = false;
+    if (service) {
+      status = await service.deleteNote("1");
     }
-  });
-
-  it("should add new note in localStorage after call method 'addNote'", async () => {
-    const newNote: NoteDTO = getMockNote();
-    const stringifyNewNotesArray = getStringifyNotesArray(newNote);
-    localStorage.removeItem("notes");
-    await service?.addNote(newNote);
-    expect(localStorage.getItem("notes")).toBe(stringifyNewNotesArray);
-  });
-
-  it("should change existent note after call method 'editNote'", async () => {
-    const newNote: NoteDTO = getMockNote();
-    newNote.title = "Изучить CSS";
-    const stringifyNewNotesArray = getStringifyNotesArray(newNote);
-    const success = await service?.editNote(newNote);
-    if (success) {
-      expect(localStorage.getItem("notes")).toBe(stringifyNewNotesArray);
-    }
+    expect(spy).toHaveBeenCalled();
+    expect(status).toBeTrue();
   });
 });
