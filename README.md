@@ -160,7 +160,8 @@
   "printWidth": 80,
   "tabWidth": 2,
   "useTabs": false,
-  "arrowParens": "avoid"
+  "arrowParens": "avoid",
+  "endOfLine": "auto"
 }
 ```
 
@@ -178,7 +179,14 @@
 }
 ```
 
-### 2.9 В IDE ![IDE](./images/IDE.png) включить опции:
+### 2.9 В файле .editorconfig включить:
+
+```
+[*]
+end_of_line = lf
+```
+
+### 2.10 В IDE ![IDE](./images/IDE.png) включить опции:
 
 #### Settings/Languages & Frameworks/Javascript/Prettier:
 
