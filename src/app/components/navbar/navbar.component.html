@@ -1,0 +1,73 @@
+<div #view>
+  <div
+    class="bg-success position-absolute"
+    [ngStyle]="{
+      width: 'calc(100vw - 100%)',
+      height: height + 'px',
+      zIndex: '1000',
+      top: '0',
+      left: '0'
+    }"
+  ></div>
+
+  <nav class="navbar navbar-expand-sm navbar-dark bg-success" id="navbar">
+    <div class="container-sm main-container">
+      <a class="navbar-brand" routerLink="/">
+        <span data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show"
+          >Заметки</span
+        >
+      </a>
+
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Переключить навигацию"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              routerLink="/"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+            >
+              <span
+                data-bs-toggle="collapse"
+                data-bs-target=".navbar-collapse.show"
+                >Главная</span
+              >
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/notes" routerLinkActive="active"
+              ><span
+                data-bs-toggle="collapse"
+                data-bs-target=".navbar-collapse.show"
+                >Все заметки</span
+              ></a
+            >
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/new" routerLinkActive="active">
+              <span
+                data-bs-toggle="collapse"
+                data-bs-target=".navbar-collapse.show"
+                >Новая заметка</span
+              >
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</div>
