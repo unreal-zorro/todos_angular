@@ -1,0 +1,53 @@
+<div #view>
+  <div class="card mb-3" [class]="completed ? 'bg-warning-subtle' : 'bg-light'">
+    <div class="card-body">
+      <h5 class="card-title text-center mb">{{ title }}</h5>
+
+      <div class="d-flex flex-column">
+        <div *ngIf="innerTodos && innerTodos?.length; else noTodos">
+          <app-todo
+            *ngFor="let todo of innerTodos!"
+            [checked]="todo.checked"
+            [text]="todo.text"
+            [onChecked]="checkedHandler(todo)"
+          ></app-todo>
+        </div>
+
+        <ng-template #noTodos>
+          <hr class="border border-danger border-2 opacity-75" />
+
+          <h5 class="mb-4 text-center text-success">
+            Задач пока нет. Добавьте первую задачу.
+          </h5>
+        </ng-template>
+      </div>
+
+      <h5 *ngIf="numberOfRestTodos" class="mb-4 text-center text-success">
+        ... Ещё осталось задач: {{ numberOfRestTodos }}
+      </h5>
+
+      <div
+        class="d-flex mt-2 flex-wrap justify-content-between align-items-center flex-row"
+      >
+        <a
+          *ngIf="isOpen && to"
+          routerLink="{{ to }}/{{ _id }}"
+          class="btn btn-success text-decoration-none text-white flex-fill m-2"
+        >
+          Открыть
+        </a>
+
+        <a
+          routerLink="/edit/{{ _id }}"
+          class="btn btn-secondary text-decoration-none text-white flex-fill m-2"
+        >
+          Изменить
+        </a>
+
+        <button class="btn btn-danger flex-fill m-2" (click)="onDelete!()">
+          Удалить
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
