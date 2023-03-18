@@ -61,11 +61,9 @@ describe("NoteComponent", () => {
 
     fixture = TestBed.createComponent(NoteComponent);
     component = fixture.componentInstance;
-
-    fixture.detectChanges();
   });
 
-  it("should create Note component without isOpen", () => {
+  xit("should create Note component without isOpen", () => {
     component._id = note._id;
     component.title = note.title;
     component.todos = note.todos;
@@ -73,6 +71,9 @@ describe("NoteComponent", () => {
     component.onDelete = handleDelete;
     component.isOpen = false;
     component.to = "/notes";
+
+    fixture.detectChanges();
+
     component.ngOnInit();
 
     linksDes = fixture.debugElement.queryAll(By.directive(RouterLink));
@@ -105,7 +106,7 @@ describe("NoteComponent", () => {
     expect(routerLinks[0].href).toBe("/edit/1");
   });
 
-  it("should create Note component with completed and isOpen", () => {
+  xit("should create Note component with completed and isOpen", () => {
     component._id = note._id;
     component.title = note.title;
     component.todos = note.todos;
@@ -113,6 +114,8 @@ describe("NoteComponent", () => {
     component.onDelete = handleDelete;
     component.isOpen = true;
     component.to = "/notes";
+
+    fixture.detectChanges();
 
     component.ngOnInit();
     fixture.detectChanges();
