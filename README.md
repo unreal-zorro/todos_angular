@@ -198,3 +198,14 @@ end_of_line = lf
 
 * поставить галочку - **Reformat code**
 * поставить галочку - **Run eslint --fix**
+
+## 3. Развёртывание приложения (deploy)
+
+### 3.1 Firebase
+
+Фронтенд-веб-приложение было развёрнуто (задеплоено) на платформе firebase.
+
+Адреса в сети интернет:
+
+* **https://todos-angular-777.web.app**
+* **https://todos-angular-777.firebaseapp.com**
