@@ -11,6 +11,7 @@ import { ModalComponent } from "./components/modal/modal.component";
 import { EditNoteComponent } from "./components/edit-note/edit-note.component";
 import { MainPageComponent } from './pages/main-page/main-page.component';
 import { NotePageComponent } from './pages/note-page/note-page.component';
+import { NoteListPageComponent } from './pages/note-list-page/note-list-page.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { NotePageComponent } from './pages/note-page/note-page.component';
     ModalComponent,
     EditNoteComponent,
     MainPageComponent,
-    NotePageComponent
+    NotePageComponent,
+    NoteListPageComponent
   ],
   imports: [BrowserModule, AppRoutingModule],
   providers: [],
