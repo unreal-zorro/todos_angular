@@ -9,6 +9,7 @@ import { TodoComponent } from "./components/todo/todo.component";
 import { NoteComponent } from "./components/note/note.component";
 import { ModalComponent } from "./components/modal/modal.component";
 import { EditNoteComponent } from "./components/edit-note/edit-note.component";
+import { MainPageComponent } from './pages/main-page/main-page.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { EditNoteComponent } from "./components/edit-note/edit-note.component";
     TodoComponent,
     NoteComponent,
     ModalComponent,
-    EditNoteComponent
+    EditNoteComponent,
+    MainPageComponent
   ],
   imports: [BrowserModule, AppRoutingModule],
   providers: [],
