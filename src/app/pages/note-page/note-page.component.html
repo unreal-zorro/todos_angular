@@ -1,0 +1,33 @@
+<div #view>
+  <h1 class="text-center mt-3">Просмотр заметки!</h1>
+
+  <hr class="border border-dark border-2 opacity-50" />
+
+  <app-note
+    *ngIf="note; else noNote"
+    [_id]="note._id"
+    [title]="note.title"
+    [todos]="note.todos"
+    [completed]="completed"
+    [onDelete]="handleDelete"
+  >
+  </app-note>
+
+  <ng-template #noNote>
+    <h5 class="mb-2 text-center text-danger">
+      Данной заметки не существует!!!
+    </h5>
+  </ng-template>
+
+  <app-modal
+    [show]="modalDialog.show"
+    [title]="modalDialog.title"
+    [text]="modalDialog.text"
+    [textOkButton]="modalDialog.textOkButton"
+    [textCancelButton]="modalDialog.textCancelButton"
+    [handleClose]="modalDialog.handleClose"
+    [handleSave]="modalDialog.handleSave"
+    [okIsLink]="modalDialog.okIsLink"
+    [to]="modalDialog.to"
+  ></app-modal>
+</div>
