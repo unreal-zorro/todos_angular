@@ -1,0 +1,131 @@
+<div #view>
+  <div
+    *ngIf="(EditMatch && note) || NewMatch; else noNote"
+    class="card mb-3"
+    [class]="completed ? 'bg-warning-subtle' : 'bg-light'"
+  >
+    <div class="card-body">
+      <label class="w-100 text-center mb-2 h5" htmlFor="noteTitle">
+        Заголовок заметки:
+      </label>
+
+      <div class="card mb-2 w-100">
+        <div
+          contentEditable="true"
+          class="form-control text-center"
+          id="noteTitle"
+          (input)="handleChangeTitle($event)"
+          (blur)="handleBlurTitle($event)"
+          suppressContentEditableWarning="true"
+        >
+          {{ note?.title }}
+        </div>
+      </div>
+
+      <hr class="border border-danger border-2 opacity-75" />
+
+      <div
+        *ngIf="note && note?.todos && note?.todos?.length; else noTodos"
+        class="d-flex flex-column"
+      >
+        <div
+          *ngFor="let todo of note?.todos"
+          class="card mb-2 w-100"
+          [class]="todo.checked ? 'bg-success bg-opacity-25' : ''"
+        >
+          <div
+            class="card-text d-flex justify-content-center align-items-center m-1 ms-3 me-3"
+          >
+            <input
+              class="form-check me-3"
+              type="checkbox"
+              [checked]="todo.checked"
+              (change)="handleCheckedToDo(todo._id)"
+            />
+            <div
+              contentEditable="true"
+              class="form-control text-break"
+              (input)="handleChangeToDoText(todo._id, $event)"
+              (blur)="handleBlurToDoText(todo._id, $event)"
+              suppressContentEditableWarning="true"
+            >
+              {{ todo.text }}
+            </div>
+            <input
+              class="btn-close ms-3"
+              type="button"
+              (click)="handleDeleteToDo(todo._id)"
+            />
+          </div>
+        </div>
+      </div>
+
+      <ng-template #noTodos>
+        <h5 class="mb-2 text-center text-success">
+          Задач пока нет. Добавьте первую задачу.
+        </h5>
+      </ng-template>
+
+      <div
+        class="d-flex w-100 justify-content-around align-items-center flex-wrap"
+      >
+        <button class="btn btn-primary m-2" (click)="handleAddToDo()">
+          Добавить задачу
+        </button>
+
+        <button
+          class="btn btn-success m-2"
+          (click)="handleUndo()"
+          [disabled]="undoSteps <= 0"
+        >
+          <div class="bi-arrow-left-circle">
+            <span>&nbsp;</span>
+            <span>Отменить {{ undoSteps }}</span>
+          </div>
+        </button>
+
+        <button
+          class="btn btn-warning m-2"
+          (click)="handleRedo()"
+          [disabled]="redoSteps <= 0"
+        >
+          <div class="bi-arrow-right-circle">
+            <span>&nbsp;</span>
+            <span>Повторить {{ redoSteps }}</span>
+          </div>
+        </button>
+      </div>
+
+      <hr class="border border-danger border-2 opacity-75" />
+
+      <div
+        class="d-flex flex-wrap justify-content-between align-items-center flex-row"
+      >
+        <button class="btn btn-secondary flex-fill m-2" (click)="handleSave()">
+          Сохранить изменения
+        </button>
+        <button class="btn btn-danger flex-fill m-2" (click)="handleCancel()">
+          Отменить изменения
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #noNote>
+    <h5 class="mb-2 text-center text-danger">
+      Данной заметки не существует!!!
+    </h5>
+  </ng-template>
+
+  <app-modal
+    [show]="modalDialog.show"
+    [title]="modalDialog.title"
+    [text]="modalDialog.text"
+    [textOkButton]="modalDialog.textOkButton"
+    [textCancelButton]="modalDialog.textCancelButton"
+    [handleClose]="modalDialog.handleClose"
+    [handleSave]="modalDialog.handleSave"
+    [okIsLink]="modalDialog.okIsLink"
+    [to]="modalDialog.to"
+  ></app-modal>
+</div>
