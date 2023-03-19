@@ -12,6 +12,7 @@ import { EditNoteComponent } from "./components/edit-note/edit-note.component";
 import { MainPageComponent } from './pages/main-page/main-page.component';
 import { NotePageComponent } from './pages/note-page/note-page.component';
 import { NoteListPageComponent } from './pages/note-list-page/note-list-page.component';
+import { NewNotePageComponent } from './pages/new-note-page/new-note-page.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { NoteListPageComponent } from './pages/note-list-page/note-list-page.com
     EditNoteComponent,
     MainPageComponent,
     NotePageComponent,
-    NoteListPageComponent
+    NoteListPageComponent,
+    NewNotePageComponent
   ],
   imports: [BrowserModule, AppRoutingModule],
   providers: [],
