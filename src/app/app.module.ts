@@ -10,6 +10,7 @@ import { NoteComponent } from "./components/note/note.component";
 import { ModalComponent } from "./components/modal/modal.component";
 import { EditNoteComponent } from "./components/edit-note/edit-note.component";
 import { MainPageComponent } from './pages/main-page/main-page.component';
+import { NotePageComponent } from './pages/note-page/note-page.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { MainPageComponent } from './pages/main-page/main-page.component';
     NoteComponent,
     ModalComponent,
     EditNoteComponent,
-    MainPageComponent
+    MainPageComponent,
+    NotePageComponent
   ],
   imports: [BrowserModule, AppRoutingModule],
   providers: [],
